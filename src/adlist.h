@@ -28,6 +28,22 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+/**
+ * http://zh-google-styleguide.readthedocs.org/en/latest/google-cpp-styleguide/headers.html
+ * 1.1提到头文件 #define保护
+ *
+ * """
+ * 为保证唯一性, 头文件的命名应该依据所在项目源代码树的全路径. 例如, 项目 foo 中的头文件 foo/src/bar/baz.h 可按如下方式保护:
+
+ * #ifndef FOO_BAR_BAZ_H_
+ * #define FOO_BAR_BAZ_H_
+ * …
+ * #endif // FOO_BAR_BAZ_H_
+ * """
+ *
+ * 这个说法在K&R的The C program language 中也有提到 4.11.3 Conditional Inclusion
+ * 很明显的能看出 用_替换了点和/，通过路径的唯一，得到了替换后名字的唯一。
+ */
 #ifndef __ADLIST_H__
 #define __ADLIST_H__
 
@@ -76,6 +92,12 @@ typedef struct list {
     // 节点数量
     unsigned long len;
 
+    /**
+     * 对于这种复杂的指针声明的拆分可以参见 http://blog.csdn.net/supermegaboy/article/details/4854965 。
+     * 是一个指向dup函数的函数指针。
+     * 返回值是void类型的指针。
+     * 参数是一个void类型的指针。
+     */
     // 复制函数
     void *(*dup)(void *ptr);
     // 释放函数
